@@ -3,11 +3,13 @@ import { Formik } from 'formik';
 import { Button, Form, Grid, Icon, Header, Message, Image, } from 'semantic-ui-react'
 import * as Yup from "yup";
 import axios from 'axios'
+import { Redirect } from "react-router-dom";
 
 import media from '../media/friends.png'
 
 
-const Login = () => {
+const Login = (props) => {
+    console.log(props)
 
     return (
 
@@ -17,7 +19,7 @@ const Login = () => {
                 username: "",
                 password: "",
             }}
-            onSubmit={(values, actions) => {
+            onSubmit={(values, actions,) => {
                 actions.resetForm()
                 const url = "http://localhost:5000/api/login";
 
@@ -25,9 +27,13 @@ const Login = () => {
 
                 axios.post(url, values)
                     .then(res => {
-                        // console.log(res.data.payload)
+                        console.log(res)
+                        let userId = res.data.payload.slice(0, 5)
+                        console.log(props.history.push)
+
                         localStorage.setItem('token', res.data.payload)
                         actions.setSubmitting(false)
+                        props.history.push(`/dashboard/${userId}`)
                     })
                     .catch(err => {
                         console.log(err.response)
