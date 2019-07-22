@@ -1,8 +1,19 @@
-import React from 'react';
-import { Card, Image, Button, Grid } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Card, Image, Button, Grid, Modal, Icon } from 'semantic-ui-react';
+import FriendForm from '../components/FriendForm'
 
 const Friend = (props) => {
     console.log(props)
+
+    const[modalOPen, setModalOpen] = useState(false)
+
+    const edit = () => {
+        props.getFriend(props.friend.id)
+    }
+
+    const deleteF = () => {
+        props.deleteFriend(props.friend.id)
+    }
 
     return (
 
@@ -17,12 +28,54 @@ const Friend = (props) => {
 
             <Card.Content extra>
                 <div className='ui two buttons'>
-                    <Button basic color='green'>
-                        Edit
-                    </Button>
-                    <Button basic color='red'>
-                        Delete
-                    </Button>
+
+                    <Modal 
+                        trigger={                    
+                            <Button onClick={edit} basic color='green'>
+                                Edit
+                            </Button>
+                        }
+                        closeIcon
+                    >
+                        <Modal.Content>
+                            <FriendForm 
+                                editClick={props.editClick} 
+                                friendToEdit={props.friendToEdit}
+                                editFriend={props.editFriend}
+                            />
+                        </Modal.Content>
+                    </Modal>
+
+                    <Modal
+                        trigger={
+                            <Button 
+                                basic 
+                                color='red'
+                                onClick={() => setModalOpen(true)}
+                            >
+                                Delete
+                            </Button>
+                        }
+                        size='small'
+                        open={modalOPen}
+                        onClose={() => setModalOpen(false)}
+                    >
+                        <Modal.Header>Delete Your Friend <Icon name='trash alternate' /></Modal.Header>
+                        <Modal.Content>
+                            <p>Are you sure you want to delete your Friend?</p>
+                        </Modal.Content>
+                        <Modal.Actions>
+                            <Button negative onClick={() => {setModalOpen(false)}}>No</Button>
+                            <Button 
+                                positive 
+                                icon='checkmark' 
+                                labelPosition='right' 
+                                content='Yes'
+                                onClick={deleteF} 
+                            />
+                        </Modal.Actions>
+                    </Modal>
+
                 </div>
             </Card.Content>
 

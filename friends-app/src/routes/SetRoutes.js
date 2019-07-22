@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Route } from 'react-router-dom'
+import PrivateRoute from './PrivateRoute'
 
 import Login from '../components/Login'
+import Dashboard from '../components/Dashboard'
 // import FriendList from '../containers/FriendList'
 // import AddFriendForm from '../components/AddFriendForm'
-import PrivateRoute from './PrivateRoute'
-import Dashboard from '../components/Dashboard'
 
 const SetRoutes = (props) => {	
 
@@ -22,10 +22,6 @@ const SetRoutes = (props) => {
 			)} />
 
 			<PrivateRoute exact path="/dashboard/:id" component={Dashboard} />	
-
-			{/* <PrivateRoute exact path="/add-friend" component={AddFriendForm} />	 */}
-
-
 
 		</div>
 	)

@@ -9,8 +9,18 @@ const FriendList = (props) => {
             <Grid.Column>
                 <Card.Group centered>
 
-                    {props.friendList.map(friend => <Friend key={friend.id} friend={friend}/>)}
-        
+                    {props.friendList.map(friend => 
+                        <Friend 
+                            key={friend.id} 
+                            friend={friend} 
+                            getFriend={props.getFriend} 
+                            editClick={props.editClick}
+                            friendToEdit={props.friendToEdit}
+                            editFriend={props.editFriend}
+                            deleteFriend={props.deleteFriend}
+                        />
+                    )}
+
                 </Card.Group>
             </Grid.Column>
         </Grid>
